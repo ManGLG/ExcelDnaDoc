@@ -1,0 +1,12 @@
+﻿@model ExcelDna.Documentation.Models.CategoryModel
+
+## @Model.Name Functions
+Click one of the links in the following list to see detailed help about the function.
+
+@foreach (var function in @Model.Functions)
+{
+@:* [@function.Name](@(function.Name).md) - @function.Description
+}
+
+### See also:
+[Function List](index.md)

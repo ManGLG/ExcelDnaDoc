@@ -142,4 +142,19 @@
   <data name="TableOfContentsTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\HelpContent\TableOfContentsTemplate.cshtml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="CategoryTemplateMD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\helpcontent\categorytemplatemd.cshtml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CommandListTemplateMD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\helpcontent\commandlisttemplatemd.cshtml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CommandTemplateMD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\helpcontent\commandtemplatemd.cshtml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FunctionTemplateMD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\helpcontent\functiontemplatemd.cshtml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MethodListTemplateMD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\helpcontent\methodlisttemplatemd.cshtml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

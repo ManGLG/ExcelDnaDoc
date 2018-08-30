@@ -6,12 +6,17 @@
     {
         public override string PageName
         {
-            get { return this.Model.Name + ".htm"; }
+            get { return this.Model.Name + (OutputType==OutputType.Html ? ".htm" : ".md"); }
         }
 
         public override byte[] Template
         {
-            get { return Properties.Resources.CommandTemplate; }
+            get
+            {
+                return OutputType == OutputType.Html
+                    ? Properties.Resources.CommandTemplate
+                    : Properties.Resources.CommandTemplateMD;
+            }
         }
     }
 }

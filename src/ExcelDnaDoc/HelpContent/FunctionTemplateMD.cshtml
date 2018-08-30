@@ -1,0 +1,50 @@
+﻿@model ExcelDna.Documentation.Models.FunctionModel
+@{
+    var parameters = new List<string>();
+    foreach (var p in Model.Parameters)
+    {
+        parameters.Add(p.Name);
+    }
+    var paramList = string.Join(", ", parameters.ToArray());
+}
+
+# @(Model.Name) function
+@if (@Model.Description != string.Empty)
+{
+@:### Description
+@Model.Description
+}
+
+### Syntax
+```
+@(Model.Name)(@(paramList))
+```
+@Model.Name function syntax has the following arguments :
+
+@foreach (var p in @Model.Parameters)
+{
+@:* **@p.Name** *@p.ParameterType* @p.Description
+}
+
+### Returns
+*@Model.ReturnType* @Model.Returns
+
+@if (@Model.Summary != string.Empty)
+{
+@:### Summary
+@Raw(@Model.Summary)
+}
+
+@if (@Model.Remarks != string.Empty)
+{ 
+@:### Remarks
+@Raw(@Model.Remarks)
+}
+						
+@if (@Model.Example != string.Empty)
+{ 
+@:### Example
+@Raw(@Model.Example)
+}
+### See Also
+[@Model.Category Functions](@Model.Category.Replace(" ","-")-Functions.md)

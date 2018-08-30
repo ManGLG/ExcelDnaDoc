@@ -6,12 +6,22 @@
     {
         public override string PageName
         {
-            get { return this.Model.ProjectName + " Commands.htm"; }
+            get
+            {
+                return OutputType == OutputType.Html
+                    ? this.Model.ProjectName + " Commands.htm"
+                    : this.Model.ProjectName.Replace(" ", "-") + "-Commands.md";
+            }
         }
 
         public override byte[] Template
         {
-            get { return Properties.Resources.CommandListTemplate; }
+            get
+            {
+                return OutputType == OutputType.Html
+                    ? Properties.Resources.CommandListTemplate
+                    : Properties.Resources.CommandListTemplateMD;
+            }
         }
     }
 }

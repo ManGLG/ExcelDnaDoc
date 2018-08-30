@@ -1,0 +1,14 @@
+﻿@model ExcelDna.Documentation.Models.AddInModel
+
+## @Model.ProjectName Commands
+Click one of the links in the following list to see detailed help about the command.
+
+@if (Model.Commands.Count() != 0)
+{
+    foreach (var command in Model.Commands)
+    {
+        @:* [@command.Name](@(command.Name).md) @command.Description
+    }
+}
+### See Also
+(Function list)[index.md]

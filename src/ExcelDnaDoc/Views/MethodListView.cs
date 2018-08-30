@@ -6,12 +6,17 @@
     {
         public override string PageName
         {
-            get { return "index.htm"; }
+            get { return (OutputType==OutputType.Html ? "index.htm" : "index.md"); }
         }
 
         public override byte[] Template
         {
-            get { return Properties.Resources.MethodListTemplate; }
+            get
+            {
+                return OutputType == OutputType.Html
+                    ? Properties.Resources.MethodListTemplate
+                    : Properties.Resources.MethodListTemplateMD;
+            }
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿@model ExcelDna.Documentation.Models.AddInModel
+
+# @Model.ProjectName Contents
+
+
+@foreach (var group in Model.Categories)
+{
+@:## [@group.Name Functions](@group.Name.Replace(" ", "-")-Functions.md)
+    foreach (var function in group.Functions)
+    {
+@:* [@function.Name](@(function.Name).md)
+    }
+}
+
+
+@if (Model.Commands.Count() != 0)
+{
+@:## [@Model.ProjectName Commands](@Model.ProjectName.Replace(" ", "-")-Commands.md)
+    foreach (var command in Model.Commands)
+    {
+@:* [@command.Name](@(command.Name).md)
+    }
+}

@@ -1,4 +1,6 @@
-﻿namespace ExcelDnaDoc
+﻿using ExcelDnaDoc.Templates;
+
+namespace ExcelDnaDoc
 {
     using System;
     using System.IO;
@@ -17,6 +19,7 @@ Usage: ExcelDnaDoc.exe dnaPath [/X]
   /ExcludeHidden or /X    Optional. Excludes hidden functions from being documented if provided.
   /SkipCompile or /S      Optional. Skips compiling the HTML Help file (.chm) if provided.
   /Async or /A            Optional. Runs in async mode, consuming more cpu, but taking less time to run.
+  /MarkDown or /MD        Optional. Creates Markdown instead of Html. SkipCompile is also enabled in this mode.
 
 Example: ExcelDnaDoc.exe <build folder>\SampleLib-AddIn.dna
          The HTML Help Workshop content will be created in <build folder>\HelpContent\.
@@ -73,7 +76,12 @@ Function Wizard, but will be included in the HTML Help Workshop content.
                         @"/Async", StringComparison.OrdinalIgnoreCase) ||
                         x.Equals(@"/A", StringComparison.OrdinalIgnoreCase));
 
-                HtmlHelp.Create(dnaPath, excludeHidden: excludeHidden, skipCompile: skipCompile, runAsync: runAsync);
+                bool markDown = args.Any(
+                    x => x.Equals(
+                             @"/MD", StringComparison.OrdinalIgnoreCase) ||
+                         x.Equals(@"/MarkDown", StringComparison.OrdinalIgnoreCase));
+
+                HtmlHelp.Create(dnaPath, excludeHidden: excludeHidden, skipCompile: skipCompile, runAsync: runAsync, outputType:markDown ? OutputType.Markdown : OutputType.Html);
             }
         }
     }

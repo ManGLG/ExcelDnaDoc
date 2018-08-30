@@ -16,8 +16,14 @@
         public static string HelpContentFolderPath { get; set; }
         public static ConcurrentDictionary<string, string> TemplateCache = new ConcurrentDictionary<string, string>();
 
-        public static void Create(string dnaPath, string helpSubfolder = "HelpContent", bool excludeHidden = false, bool skipCompile = false, bool runAsync = false)
+        public static void Create(string dnaPath, string helpSubfolder = "HelpContent", bool excludeHidden = false, bool skipCompile = false, bool runAsync = false, OutputType outputType=OutputType.Html)
         {
+            if (outputType == OutputType.Markdown)
+            {
+                helpSubfolder += "_MD";
+                skipCompile = true;
+            }
+
             BuildFolderPath = Path.GetDirectoryName(dnaPath);
             HelpContentFolderPath = Path.Combine(HtmlHelp.BuildFolderPath, helpSubfolder);
 
@@ -40,19 +46,19 @@
                 new TableOfContentsView { Model = addin }.Publish();
             }
 
-            new MethodListView { Model = addin }.Publish();
+            new MethodListView { Model = addin, OutputType = outputType}.Publish();
 
             //Perhaps better to actually enumerate the values?
             List<Task> tasks = new List<Task>(runAsync ? 5000 : 0);
 
-            foreach (var group in addin.Categories) 
+            foreach (var group in addin.Categories)
             {
-                Action categoryAction = new Action(() => new CategoryView { Model = group }.Publish());
+                Action categoryAction = new Action(() => new CategoryView { Model = group, OutputType = outputType }.Publish());
                 Run(categoryAction, tasks, runAsync);
 
                 foreach (FunctionModel function in group.Functions)
                 {
-                    Action functionAction = new Action(() => new FunctionView { Model = function }.Publish());
+                    Action functionAction = new Action(() => new FunctionView { Model = function, OutputType = outputType }.Publish());
                     Run(functionAction, tasks, runAsync);
                 }
             }
@@ -60,11 +66,11 @@
             // create Excel Commands content
             if (addin.Commands.Count() != 0)
             {
-                new CommandListView { Model = addin }.Publish();
+                new CommandListView { Model = addin, OutputType = outputType }.Publish();
 
                 foreach (var command in addin.Commands)
                 {
-                    Action commandAction = new Action(() => new CommandView { Model = command }.Publish());
+                    Action commandAction = new Action(() => new CommandView { Model = command, OutputType = outputType }.Publish());
                     Run(commandAction, tasks, runAsync);
                 }
             }
@@ -76,15 +82,17 @@
             }
 
             // look for style sheet otherwise use embedded one
-
-            string stylePath = Path.Combine(HelpContentFolderPath, "helpstyle.css");
-            if (!File.Exists(stylePath))
+            if (outputType == OutputType.Html)
             {
-                File.WriteAllText(stylePath, Properties.Resources.helpstyle);
-            }
-            else
-            {
-                System.Console.WriteLine("using local template : helpstyle.css");
+                string stylePath = Path.Combine(HelpContentFolderPath, "helpstyle.css");
+                if (!File.Exists(stylePath))
+                {
+                    File.WriteAllText(stylePath, Properties.Resources.helpstyle);
+                }
+                else
+                {
+                    System.Console.WriteLine("using local template : helpstyle.css");
+                }
             }
 
             Console.WriteLine();

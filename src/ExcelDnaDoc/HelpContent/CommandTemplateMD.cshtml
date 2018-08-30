@@ -1,0 +1,16 @@
+﻿@model ExcelDna.Documentation.Models.CommandModel
+
+# @(Model.Name) command
+@if (@Model.Description != string.Empty)
+{
+@:### Description
+@Model.Description
+}
+
+@if (@Model.ShortCut != string.Empty)
+{
+@:### Shortcut
+@Model.ShortCut
+}
+### See Also
+[@Model.Category Commands](@Model.Category.Replace(" ","-")-Commands.md)

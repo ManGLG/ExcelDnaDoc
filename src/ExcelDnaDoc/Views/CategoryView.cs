@@ -6,12 +6,22 @@
     {
         public override string PageName
         {
-            get { return this.Model.Name + " Functions.htm"; }
+            get
+            {
+                return OutputType == OutputType.Html
+                    ? this.Model.Name + " Functions.htm"
+                    : this.Model.Name.Replace(" ", "-") + "-Functions.md";
+            }
         }
 
         public override byte[] Template 
-        { 
-            get { return Properties.Resources.CategoryTemplate; } 
+        {
+            get
+            {
+                return OutputType == OutputType.Html
+                    ? Properties.Resources.CategoryTemplate
+                    : Properties.Resources.CategoryTemplateMD;
+            } 
         }
     }
 }

@@ -8,9 +8,13 @@
     using RazorEngine;
     using RazorEngine.Templating;
 
+    public enum OutputType { Html, Markdown }
+
     public abstract class ViewBase<T> : TemplateBase<T>
     {
         public new T Model { get; set; }
+
+        public OutputType OutputType { get; set; }
 
         public abstract string PageName { get; }
 
@@ -20,7 +24,7 @@
         {
             get
             {
-                return Path.Combine(HtmlHelp.HelpContentFolderPath, this.TemplateName + ".cshtml");
+                return Path.Combine(HtmlHelp.HelpContentFolderPath, this.TemplateName + (OutputType==OutputType.Markdown ? "MD" : "") + ".cshtml");
             }
         }
 
